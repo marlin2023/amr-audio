@@ -1,0 +1,66 @@
+/*
+ * com_jabber_audio_encoder_AudioReceiveJniApi.c
+ *
+ *  Created on: Jun 6, 2013
+ *      Author: chris
+ */
+
+#include "com_jabber_audio_encoder_AudioReceiveJniApi.h"
+#include "rtp_recv_amr.h"
+
+#include <stdlib.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+/*
+ * Class:     com_jabber_audio_encoder_AudioReceiveJniApi
+ * Method:    yy_init
+ * Signature: (I)I
+ */
+JNIEXPORT jint JNICALL Java_com_jabber_audio_encoder_AudioReceiveJniApi_yy_1init
+  (JNIEnv *env, jclass js, jint port){
+
+	int yy_handle = yy_init(port);
+
+	return (jint)yy_handle;
+}
+
+/*
+ * Class:     com_jabber_audio_encoder_AudioReceiveJniApi
+ * Method:    yy_rtp_receive_amr
+ * Signature: (I)[B
+ */
+JNIEXPORT jbyteArray JNICALL Java_com_jabber_audio_encoder_AudioReceiveJniApi_yy_1rtp_1receive_1amr
+  (JNIEnv *env , jclass js, jint j_handle){
+
+	int handle = j_handle;
+
+	jbyteArray result = NULL;
+	jclass cls = (*env)->FindClass(env, "[B"); //如果可以这句话可以不要。。
+	result = (*env)->NewByteArray(env, 13);
+
+	char *recv_data = yy_rtp_recv_amr( handle);		//jbyte*  -> char *
+	//char * yy_rtp_recv_amr(int handle)
+	(*env)->SetByteArrayRegion(env, result, 0, 13, (jbyte*)recv_data);
+	return result;
+
+}
+
+/*
+ * Class:     com_jabber_audio_encoder_AudioReceiveJniApi
+ * Method:    yy_exit
+ * Signature: (I)I
+ */
+JNIEXPORT jint JNICALL Java_com_jabber_audio_encoder_AudioReceiveJniApi_yy_1exit
+	(JNIEnv *env, jclass js, jint j_handle){
+	int handle = j_handle;
+	yy_exit(handle);
+	return 0;
+}
+
+#ifdef __cplusplus
+}
+#endif
+
+

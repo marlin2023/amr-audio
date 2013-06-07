@@ -1,0 +1,20 @@
+LOCAL_PATH := $(call my-dir)
+include $(CLEAR_VARS)
+
+LOCAL_SRC_FILES:=com_jabber_audio_encoder_AudioTransJniApi.c \
+				rtp_send_amr.c
+
+LOCAL_C_INCLUDES := $(JNI_H_INCLUDE)
+
+LOCAL_MODULE := rtp_send
+
+LOCAL_SHARED_LIBRARIES := libutils
+
+LOCAL_LDLIBS := -fpic -D_CHRIS -llog  -L/home/chris/work/rtp-rtcp/ortp-arm/lib -lortp
+
+
+LOCAL_PRELINK_MODULE := false
+
+LOCAL_PROGUARD_ENABLED := disabled
+
+include $(BUILD_SHARED_LIBRARY)
