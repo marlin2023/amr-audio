@@ -58,24 +58,17 @@ char * yy_rtp_recv_amr(int handle) {
 			if (err >0) stream_received=1;
 			/* this is to avoid to write to disk some silence before the first RTP packet is returned*/
 			if ((stream_received) && (err>0)) {
-				size_t ret = fwrite(buffer,1,err,outfile);
-				int ii;
-				for(ii =0 ; ii < 32 ; ii ++)
-					printf("%x " ,buffer[ii]);
-				printf("\n");
-////				while(1);
-//				if (sound_fd>0){
-//					ret = write(sound_fd,buffer,err);
-//					if (ret==-1){
-//						fprintf(stderr,"write to sound card failed (%s)",strerror(errno));
-//					}
-//				}
-				__android_log_print(ANDROID_LOG_INFO, "zhangyanlong",
-						"%x ,%x ,%x ,%x ,%x", buffer[0], buffer[1], buffer[2],
-						buffer[3], buffer[4]);
-				printf("%x ,%x ,%x ,%x ,%x \n", buffer[0], buffer[1], buffer[2],
-						buffer[3], buffer[4]);
-				printf("stream_recv = %d \n" ,err);
+//				size_t ret = fwrite(buffer,1,err,outfile);
+//				int ii;
+//				for(ii =0 ; ii < 32 ; ii ++)
+//					printf("%x " ,buffer[ii]);
+//				printf("\n");
+//				__android_log_print(ANDROID_LOG_INFO, "zhangyanlong",
+//						"%x ,%x ,%x ,%x ,%x", buffer[0], buffer[1], buffer[2],
+//						buffer[3], buffer[4]);
+//				printf("%x ,%x ,%x ,%x ,%x \n", buffer[0], buffer[1], buffer[2],
+//						buffer[3], buffer[4]);
+//				printf("stream_recv = %d \n" ,err);
 				__android_log_print(ANDROID_LOG_INFO,"zhangyanlong", "stream_recv = %d \n" ,err);
 				__android_log_print(ANDROID_LOG_INFO, "zhangyanlong",
 						"...................return buffer");
